@@ -26,4 +26,14 @@ class MainController extends AbstractController
 
         return $this->render('main/about_us.html.twig', []);
     }
+
+    /**
+     * @Route("/legal-stuff", name="main_legal_stuff", methods={"GET", "POST"})
+     */
+    public function legalStuff(): Response
+    {
+
+        return $this->render('main/legal_stuff.html.twig', []);
+    }
+
 }
