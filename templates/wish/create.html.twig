@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    {{ parent() }} | Create Wish
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>Create a new wish</h1>
+
+    <div>
+        {{ form(wish_form) }}
+
+    </div>
+{% endblock %}
+
