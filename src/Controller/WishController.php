@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Wish;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,5 +31,26 @@ class WishController extends AbstractController
             //passe l'id présent dans l'URL à twig
             "wish_id" => $id
         ]);
+    }
+
+    /**
+     * @Route("/wishes/add", name="wish_add_test")
+     */
+    public function addTest(EntityManagerInterface $entityManager)
+    {
+        //Crée une instance de mon entité, vide pour l'instant
+       $wish = new Wish();
+
+       //hydrate l'entité
+        $wish->setTitle('Faire le tour du monde');
+        $wish->setDescription('gregreg');
+        $wish->setAuthor('moi');
+        $wish->setIsPublished(true);
+        $wish->setDateCreated(new \DateTime());
+
+        $entityManager->persist($wish);
+        $entityManager->flush();
+
+        return new Response('OK !');
     }
 }
