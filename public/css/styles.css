@@ -1,8 +1,49 @@
-body {
-    background-color: darkgreen;
-    font-family: 'Hachi Maru Pop', cursive;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-header img {
-    height: 40px;
+body {
+    background-color: lightblue;
+    font-family: 'Oswald', cursive;
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+footer {
+    padding: 10px 0;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    color: #6f00ff;
+}
+
+.main-logo {
+    display: flex;
+    align-items: baseline;
+    font-size: 32px;
+    color: #000;
+    font-weight: 200;
+}
+
+.main-logo img {
+    height: 30px;
+}
+
+header nav {
+    display: flex;
+}
+
+header nav a {
+    padding: 5px;
+}
+
+footer {
+    text-align: center;
 }

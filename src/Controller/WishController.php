@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Wish;
+use App\Repository\WishRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,23 +14,36 @@ class WishController extends AbstractController
     /**
      * @Route("/wishes", name="wish_list", methods={"GET"})
      */
-    public function list(): Response
+    public function list(WishRepository $wishRepository): Response
     {
-        //@todo: aller chercher tous les wishes dans la bdd
+        //aller chercher tous les wishes dans la bdd
 
-        return $this->render('wish/list.html.twig',[]);
+        $wishes = $wishRepository->findBy(
+            ["isPublished" => true],
+            ["dateCreated" => "DESC"]
+        );
+
+        return $this->render('wish/list.html.twig', [
+            "wishes" => $wishes
+        ]);
     }
 
     /**
      * @Route("/wishes/detail/{id}", name="wish_detail", methods={"GET"}, requirements={"id": "\d+"})
      */
-    public function detail(int $id): Response
+    public function detail(int $id, WishRepository $wishRepository): Response
     {
-        //@todo: aller chercher la bdd le wish dont l'id est dans l'URL
+        //aller chercher la bdd le wish dont l'id est dans l'URL
+
+        $wish = $wishRepository->find($id);
+
+        //Qu'est ce qu'on fait si ce wish n'existe pas en bdd
+
 
         return $this->render('wish/detail.html.twig', [
             //passe l'id présent dans l'URL à twig
-            "wish_id" => $id
+            "wish_id" => $id,
+            "wish" => $wish
         ]);
     }
 
