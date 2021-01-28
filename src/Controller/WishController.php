@@ -58,20 +58,17 @@ class WishController extends AbstractController
     public function addTest(EntityManagerInterface $entityManager)
     {
 
-
-            //Crée une instance de mon entité, vide pour l'instant
-       $wish = new Wish();
-
        //hydrate l'entité
         //$wish->setTitle('Faire le tour du monde');
         //$wish->setDescription('gregreg');
         //$wish->setAuthor('moi');
 
-
         $faker = \Faker\Factory::create("fr_FR");
 
         // Je créé une boucle pour générer 200 ajouts dans la bdd
-            for ($i = 0; $i < 200; $i++){
+        for ($i = 0; $i < 200; $i++){
+        //Crée une instance de mon entité, vide pour l'instant
+        $wish = new Wish();
 
          $wish->setTitle($faker->title());//génère un nom aléatoire
          $wish->setDescription($faker->realText(250)); //génère une description réelle aléatoire
@@ -79,9 +76,10 @@ class WishController extends AbstractController
          $wish->setIsPublished($faker->boolean()); //génère une publication aléatoire
          $wish->setDateCreated($faker->dateTime()); //génère une date aléatoire
 
-        $entityManager->persist($wish);
-        $entityManager->flush();
+            $entityManager->persist($wish);
+
         }
+            $entityManager->flush();
 
         return new Response('OK !');
     }
