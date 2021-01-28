@@ -1,6 +1,10 @@
 <?php
 
+
 namespace App\Controller;
+
+# When installed via composer
+//require_once 'vendor/autoload.php';
 
 use App\Entity\Wish;
 use App\Form\WishType;
@@ -57,11 +61,22 @@ class WishController extends AbstractController
        $wish = new Wish();
 
        //hydrate l'entité
-        $wish->setTitle('Faire le tour du monde');
-        $wish->setDescription('gregreg');
-        $wish->setAuthor('moi');
-        $wish->setIsPublished(true);
-        $wish->setDateCreated(new \DateTime());
+       // $wish->setTitle('Faire le tour du monde');
+        //$wish->setDescription('gregreg');
+       // $wish->setAuthor('moi');
+
+
+
+
+
+        $faker = \Faker\Factory::create("fr_FR");
+
+
+         $wish ->setTitle($faker->title());//génère un nom aléatoire
+         $wish->setDescription($faker->realText(250)); //génère une description réelle aléatoire
+         $wish->setAuthor($faker->name()); //Génère un auteur aléatoire
+         $wish->setIsPublished(true);
+         $wish->setDateCreated(new \DateTime());
 
         $entityManager->persist($wish);
         $entityManager->flush();
@@ -70,7 +85,7 @@ class WishController extends AbstractController
     }
 
     /**
-     * @Route("/wishies/create", name="wishies_create")
+     * @Route("/wishes/create", name="wishes_create")
      */
     public function create(): Response
     {
