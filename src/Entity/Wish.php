@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\WishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=WishRepository::class)
@@ -18,17 +19,19 @@ class Wish
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Please provide an idea!")
+     * @Assert\Length(max=250, maxMessage="Max 250 characters please!")
      * @ORM\Column(type="string", length=250)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="text", length=50)
+     * @ORM\Column(type="string", length=50)
      */
     private $author;
 
@@ -41,6 +44,29 @@ class Wish
      * @ORM\Column(type="datetime")
      */
     private $dateCreated;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="wishes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
 
     public function getId(): ?int
     {
@@ -106,4 +132,6 @@ class Wish
 
         return $this;
     }
+
+
 }

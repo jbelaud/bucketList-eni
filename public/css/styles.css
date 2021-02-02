@@ -16,10 +16,6 @@ footer {
     padding: 10px 0;
 }
 
-img{
-    height: 40px;
-}
-
 main {
     flex: 1;
 }
@@ -50,4 +46,17 @@ header nav a {
 
 footer {
     text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+form li {
+    color: red;
+}
+
+img{
+    height: 40px;
 }

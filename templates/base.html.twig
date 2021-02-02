@@ -20,7 +20,7 @@
     <nav>
         <a href="{{ path('main_home') }}" title="Go back home">Home</a>
         <a href="{{ path('wish_list') }}" title="The wish list>">Wishes</a>
-        <a href="{{ path('wishes_create') }}" title="Create">Create Wish</a>
+        <a href="{{ path('wish_create') }}" title="Create">Create Wish</a>
         <a href="{{ path('main_about_us') }}" title="About us">About us</a>
         <a href="{{ path('main_legal_stuff')}}" title="Mentions légales">Mentions Légales</a>
         <a href="{{ path('wish_add_test') }}" title="Ajout aléatoire de Wishies">Ajout aléatoire de Wish</a>
@@ -28,6 +28,15 @@
 </header>
 
 <main>
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     {% block body %}{% endblock %}
 </main>
 

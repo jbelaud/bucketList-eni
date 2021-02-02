@@ -8,10 +8,24 @@
 
 {% block body %}
 
-    <h1>Create a new wish</h1>
+    <h1>Add an idea</h1>
 
     <div>
-        {{ form(wish_form) }}
+        {{ form_start(wish_form, {attr: {'novalidate': 'novalidate'}}) }}
+
+        {{ form_label(wish_form.title) }}
+        {{ form_widget(wish_form.title) }}
+        {{ form_errors(wish_form.title) }}
+
+        {{ form_label(wish_form.description) }}
+        {{ form_widget(wish_form.description) }}
+        {{ form_errors(wish_form.description) }}
+
+        {{ form_label(wish_form.author) }}
+        {{ form_widget(wish_form.author) }}
+        {{ form_errors(wish_form.author) }}
+
+        {{ form_end(wish_form) }}
 
     </div>
 {% endblock %}
