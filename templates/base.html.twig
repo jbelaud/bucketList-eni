@@ -20,8 +20,15 @@
     <nav>
         <a href="{{ path('main_home') }}" title="Go back home">Home</a>
         <a href="{{ path('wish_list') }}" title="The wish list>">Wishes</a>
-        <a href="{{ path('wish_create') }}" title="Create">Create Wish</a>
         <a href="{{ path('main_about_us') }}" title="About us">About us</a>
+        {%  if app.user %}
+            <a href="{{ path('wish_create') }}" title="Create">Add a Wish</a>
+            <a href="{{ path('app_logout') }}">Logout({{ app.user.username }})</a>
+        {% else %}
+            <a href="{{ path('app_login') }}">Login</a>
+            <a href="{{ path('app_register') }}">Create an account</a>
+        {% endif %}
+
         <a href="{{ path('main_legal_stuff')}}" title="Mentions légales">Mentions Légales</a>
         <a href="{{ path('wish_add_test') }}" title="Ajout aléatoire de Wishies">Ajout aléatoire de Wish</a>
     </nav>

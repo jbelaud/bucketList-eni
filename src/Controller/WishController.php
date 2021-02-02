@@ -6,6 +6,7 @@ use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +15,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class WishController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/wishes/create", name="wish_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         //crée l'instance vide associée au formulaire
         $wish = new Wish();
+
+        //retourne l'entité User de l'utilisateur connecté
+        $user = $this->getUser();
+        //préremplit le champ Author
+        $wish->setAuthor( $user->getUsername());
 
         //on hydrate les propriétés manquantes
         $wish->setDateCreated(new \DateTime());
