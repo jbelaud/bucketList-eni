@@ -23,7 +23,7 @@
         <a href="{{ path('main_about_us') }}" title="About us">About us</a>
         {%  if app.user %}
             <a href="{{ path('wish_create') }}" title="Create">Add a Wish</a>
-            <a href="{{ path('app_logout') }}">Logout({{ app.user.username }})</a>
+            <a href="{{ path('app_logout') }}">Logout({{ app.user.email }})</a>
         {% else %}
             <a href="{{ path('app_login') }}">Login</a>
             <a href="{{ path('app_register') }}">Create an account</a>

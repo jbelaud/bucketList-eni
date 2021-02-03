@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use App\Util\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,9 @@ class WishController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route("/wishes/create", name="wish_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request,
+                           EntityManagerInterface $entityManager,
+                            Censurator $censurator): Response
     {
         //crée l'instance vide associée au formulaire
         $wish = new Wish();
@@ -41,6 +44,11 @@ class WishController extends AbstractController
 
         //si le form est soumis et valide
         if ($wishForm->isSubmitted() && $wishForm->isValid()){
+            //censure les mots pas gentils
+            $purifiedDescription = $censurator->purify($wish->getDescription());
+            $wish->setDescription($purifiedDescription);
+
+
             //on insert
             $entityManager->persist($wish);
             $entityManager->flush();
